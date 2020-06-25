@@ -20,10 +20,15 @@ export class ListItemsComponent implements OnInit {
     );
   }
 
-  addItem(task: string): void {
-    // this.list.length[this.list.length - 1] =  this.list.length[this.list.length - 1] === 0 ? this.list : [];
-      this.list.push({ id: this.list[this.list.length - 1].id + 1, value: task});
-      this.newItem.nativeElement.value = ' ';
+  addItem(value: string): void {
+   let id = 1;
+   if (this.list[this.list.length - 1] !== undefined) {
+    id = this.list[this.list.length - 1].id + 1;
+   }
+   if (value !== '') {
+    this.list.push({id, value});
+    this.newItem.nativeElement.value = '';
+   }
   }
 
   removeItem(id: number): void {

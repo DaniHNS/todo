@@ -13,28 +13,28 @@
         <span class="btn btn-default input-group-text" (click)="addItem(newItem.value)">Add</span>
       </div>
     </div>
+    <div>
+      <h3>{{ newItem.value }}</h3>
+    </div>
+    <ul>
+      <li *ngFor="let item of list; index as i;trackBy: trackByFn;">
+        <div *ngIf="show !== i">
+          <span class="value-class">{{ item.id }}</span>
+          <span>{{ item.value}}</span>
+          <span id="{{ i }}" class="edit-class" (click)="removeItem(i)">x</span>
+          <span class="edit-class" (click)="editItem(i)">edit</span>
+        </div>
+        <div class="edit-input-field" *ngIf="show === i">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Edit"
+            name="edit"
+            [(ngModel)]="editedItem.value"
+          />
+          <span class="btn btn-default input-group-text" (click)="saveItem(i)">Save</span>
+        </div>
+      </li>
+    </ul>
   </form>
-  <div>
-    <h3>{{ newItem.value }}</h3>
-  </div>
-  <ul>
-    <li *ngFor="let item of list; index as i;trackBy: trackByFn;">
-      <div *ngIf="show !== i">
-        <span class="value-class">{{ item.id }}</span>
-        <span>{{ item.value}}</span>
-        <span id="{{ i }}" class="edit-class" (click)="removeItem(i)">x</span>
-        <span class="edit-class" (click)="editItem(i)">edit</span>
-      </div>
-      <div class="edit-input-field" *ngIf="show === i">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Edit"
-          name="edit"
-          [(ngModel)]="editedItem.value"
-        />
-        <span class="btn btn-default input-group-text" (click)="saveItem(i)">Save</span>
-      </div>
-    </li>
-  </ul>
 </div>
