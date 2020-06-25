@@ -1,60 +1,50 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Item, Items } from './../../item/item';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Item } from '../item';
 
 @Component({
-  selector: 'list-items',
+  selector: 'app-list-items',
   templateUrl: './list-items.component.html',
   styleUrls: ['./list-items.component.scss']
 })
 export class ListItemsComponent implements OnInit {
   @ViewChild('newItem', { static: false }) newItem: ElementRef;
-  public show: number;
+  show: number;
+  editedItem: Item = {} as Item;
   list: Item[] = [];
 
-  editedItem: Item = {} as Item;
-
   ngOnInit() {
-    this.list = [
-      { id: 1, value: "wash" },
-      { id: 2, value: "clean" },
-      { id: 3, value: "finish" }
-    ];
+    this.list.push(
+      this.addEditItem(1, 'wash'),
+      this.addEditItem(2, 'clean'),
+      this.addEditItem(3, 'finish')
+    );
   }
 
-  addItem(task) {
-    let lastTaskIndex = this.list.length - 1;
-    let lastId = this.list[lastTaskIndex].id + 1;
-    let tempObj: Item = {} as Item;
-    tempObj.id = lastId;
-    tempObj.value = task;
-    this.list.push(tempObj);
-    this.newItem.nativeElement.value = ' ';
+  addItem(task: string): void {
+    // this.list.length[this.list.length - 1] =  this.list.length[this.list.length - 1] === 0 ? this.list : [];
+      this.list.push({ id: this.list[this.list.length - 1].id + 1, value: task});
+      this.newItem.nativeElement.value = ' ';
   }
 
-  removeItem(id) {
+  removeItem(id: number): void {
     this.list.splice(id, 1);
   }
 
-  editItem(id) {
+  editItem(id: number): void {
     this.toggle(id);
-    let tempObj: Item = {} as Item;
-    tempObj.id = this.list[id].id;
-    tempObj.value = this.list[id].value;
-    this.editedItem.id = tempObj.id;
-    this.editedItem.value = tempObj.value;
+    this.addEditItem(this.list[id].id, this.list[id].value);
   }
 
-  saveItem(id) {
+  saveItem(id: number): void {
     this.list[id].value = this.editedItem.value;
     this.show = -1;
   }
 
-  toggle(index) {
-    // not triple = no need for type comp
-    if (this.show == index) {
-      this.show = -1;
-    } else {
-      this.show = index;
-    }
+  toggle(index: number): void {
+    this.show = this.show === index ? this.show = -1 : index;
+  }
+
+  addEditItem(id: number , value: string) {
+    return { id, value };
   }
 }

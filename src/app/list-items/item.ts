@@ -3,7 +3,3 @@ export interface Item {
     value: string;
     status?: boolean;
 }
-
-export interface Items {
-     items: Item[];
-}

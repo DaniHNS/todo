@@ -1,27 +1,40 @@
 <div class="container">
-    <form>
-        <div class="form-group">
-            <div class="input-group-prepend">
-                <input type="text" #newItem class="form-control" placeholder="Add Todo" name="todo" [(ngModel)]="newItem.value" >
-                <span class="btn btn-default input-group-text" (click)="addItem(newItem.value)">Add</span>
-            </div>
-        </div>
-    </form>
-    <div>
-        <h3>{{newItem.value}}</h3>        
+  <form>
+    <div class="form-group">
+      <div class="input-group-prepend">
+        <input
+          type="text"
+          #newItem
+          class="form-control"
+          placeholder="Add Todo"
+          name="todo"
+          [(ngModel)]="newItem.value"
+        />
+        <span class="btn btn-default input-group-text" (click)="addItem(newItem.value)">Add</span>
+      </div>
     </div>
-    <ul>
-        <li *ngFor="let item of list, index as i">
-            <div *ngIf="show !== i">
-                <span style="margin-right:15px;">{{item.id}}</span>{{item.value}}<span
-                id='{{i}}' style="margin-left:15px; cursor: pointer;" (click)=removeItem(i)>x</span>
-                <span
-                 style="margin-left:15px; cursor: pointer;" (click)=editItem(i)>edit</span>
-            </div>
-            <div class="edit-input-field" *ngIf="show === i">
-                <input  type="text" class="form-control" placeholder="Edit" name="edit" [(ngModel)]="editedItem.value" >
-                <span class="btn btn-default input-group-text" (click)="saveItem(i)">Save</span>
-            </div>
-        </li>
-    </ul>
+  </form>
+  <div>
+    <h3>{{ newItem.value }}</h3>
+  </div>
+  <ul>
+    <li *ngFor="let item of list; index as i;trackBy: trackByFn;">
+      <div *ngIf="show !== i">
+        <span class="value-class">{{ item.id }}</span>
+        <span>{{ item.value}}</span>
+        <span id="{{ i }}" class="edit-class" (click)="removeItem(i)">x</span>
+        <span class="edit-class" (click)="editItem(i)">edit</span>
+      </div>
+      <div class="edit-input-field" *ngIf="show === i">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Edit"
+          name="edit"
+          [(ngModel)]="editedItem.value"
+        />
+        <span class="btn btn-default input-group-text" (click)="saveItem(i)">Save</span>
+      </div>
+    </li>
+  </ul>
 </div>
