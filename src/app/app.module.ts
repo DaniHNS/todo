@@ -2,13 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-
+import { ListItemsComponent } from './list-items/list-items/list-items.component';
+import { ItemComponent } from './item/item.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ListItemsComponent,
+    ItemComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule, FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
