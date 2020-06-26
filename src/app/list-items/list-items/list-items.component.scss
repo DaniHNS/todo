@@ -1,10 +1,17 @@
 ul {
-    padding: 0;
-    li {
-        list-style: none;
+  padding: 0;
+  li {
+    list-style: none;
 
-        .edit-input-field{
-            display: flex;
-        }
+    .edit-input-field {
+      display: flex;
     }
+    div .edit-class{
+        margin-left:15px;
+        cursor: pointer;
+    }
+    div .value-class{
+        margin-right:15px;
+    }
+  }
 }
