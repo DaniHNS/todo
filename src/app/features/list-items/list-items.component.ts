@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import { Item } from '../item';
+import { Item } from '../../core/model/item';
 
 @Component({
   selector: 'app-list-items',
@@ -8,12 +8,14 @@ import { Item } from '../item';
   styleUrls: ['./list-items.component.scss']
 })
 export class ListItemsComponent implements OnInit {
-  @ViewChild('newItem', { static: false }) newItem: ElementRef;
+  faTrash = faTrashAlt;
+  faPencil = faPencilAlt;
+  // @ViewChild('newItem', { static: false }) newItem: ElementRef;
   show: number;
   editedItem: Item = {} as Item;
   list: Item[] = [];
-  faTrash = faTrashAlt;
-  faPencil = faPencilAlt;
+  isEditItem: boolean;
+  newItem: string;
 
   ngOnInit() {
     this.list.push(
@@ -21,6 +23,8 @@ export class ListItemsComponent implements OnInit {
       this.addEditItem(2, 'clean', false),
       this.addEditItem(3, 'finish', false)
     );
+    this.isEditItem = false;
+    this.newItem = '';
   }
 
   addItem(value: string): void {
@@ -31,7 +35,7 @@ export class ListItemsComponent implements OnInit {
    }
    if (value !== '') {
     this.list.push({id, value, status});
-    this.newItem.nativeElement.value = '';
+    this.newItem = '';
    }
   }
 
@@ -40,13 +44,16 @@ export class ListItemsComponent implements OnInit {
   }
 
   editItem(id: number): void {
+    this.isEditItem = true;
     this.toggle(id);
     this.addEditItem(this.list[id].id, this.list[id].value, this.list[id].status);
+    this.newItem = '';
   }
 
   saveItem(id: number): void {
     this.list[id].value = this.editedItem.value;
     this.show = -1;
+    this.isEditItem = false;
   }
 
   toggle(index: number): void {

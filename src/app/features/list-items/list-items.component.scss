@@ -1,0 +1,26 @@
+// form {
+  ul {
+    padding: 0;
+    li {
+      list-style: none;
+
+      .edit-input-field {
+        display: flex;
+      }
+      div .edit-class {
+        margin-left: 15px;
+        cursor: pointer;
+      }
+      div .value-class {
+        padding: 0 5px;
+      }
+      .completed {
+        color: darkgray;
+        text-decoration: line-through;
+      }
+    }
+  }
+  .form-group .input-group-prepend .btn-default {
+    margin-left: 10px;
+  }
+// }

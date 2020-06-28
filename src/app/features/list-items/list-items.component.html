@@ -1,0 +1,61 @@
+<div class="row">
+  <!-- <form> -->
+    <div class="col-sm-8">
+      <div class="form-group" *ngIf="!isEditItem">
+        <div class="input-group-prepend">
+          <input
+            type="text"
+
+            class="form-control"
+            placeholder="Add Todo"
+            name="todo"
+            [(ngModel)]="newItem"
+          />
+          <span
+            class="btn btn-default input-group-text"
+            (click)="addItem(newItem)"
+            >Add</span
+          >
+        </div>
+      </div>
+      <div>
+        <h3>{{ newItem }}</h3>
+      </div>
+      <ul>
+        <li *ngFor="let item of list; index as i; trackBy: trackByFn">
+          <div [class.completed]="item.status" *ngIf="show !== i">
+            <span>
+              <input
+                (change)="changeTodoStatus(item)"
+                type="checkbox"
+                [checked]="item.status"
+              />
+            </span>
+            <span class="value-class">{{ item.id }}</span>
+            <span>{{ item.value }}</span>
+            <fa-icon
+              [icon]="faPencil"
+              class="edit-class"
+              (click)="editItem(i)"
+            ></fa-icon>
+            <fa-icon
+              [icon]="faTrash"
+              class="edit-class"
+              (click)="removeItem(i)"
+            ></fa-icon>
+          </div>
+          <div class="edit-input-field" *ngIf="show === i">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Edit"
+              name="edit"
+              [(ngModel)]="editedItem.value"
+            />
+            <span class="btn btn-default input-group-text" (click)="saveItem(i)">Save</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  <!-- </form> -->
+</div>
