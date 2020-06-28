@@ -18,11 +18,15 @@
     </div>
     <ul>
       <li *ngFor="let item of list; index as i;trackBy: trackByFn;">
-        <div *ngIf="show !== i">
-          <span class="value-class">{{ item.id }}</span>
+        <div [class.completed]="item.status" *ngIf="show !== i">
+          <span>
+              <input (change)="changeTodoStatus(item)" type="checkbox" [checked]="item.status">
+          </span>
+          <fa-icon  [icon]="faPencil" class="edit-class" (click)="editItem(i)"></fa-icon>
+          <!-- <span class="value-class">{{ item.id }}</span> -->
           <span>{{ item.value}}</span>
-          <span id="{{ i }}" class="edit-class" (click)="removeItem(i)">x</span>
-          <span class="edit-class" (click)="editItem(i)">edit</span>
+          <fa-icon id="{{ i }}" [icon]="faTrash" class="edit-class" (click)="removeItem(i)"></fa-icon>
+          
         </div>
         <div class="edit-input-field" *ngIf="show === i">
           <input

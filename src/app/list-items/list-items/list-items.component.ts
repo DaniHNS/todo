@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { Item } from '../item';
 
 @Component({
@@ -11,22 +12,25 @@ export class ListItemsComponent implements OnInit {
   show: number;
   editedItem: Item = {} as Item;
   list: Item[] = [];
+  faTrash = faTrashAlt;
+  faPencil = faPencilAlt;
 
   ngOnInit() {
     this.list.push(
-      this.addEditItem(1, 'wash'),
-      this.addEditItem(2, 'clean'),
-      this.addEditItem(3, 'finish')
+      this.addEditItem(1, 'wash', false),
+      this.addEditItem(2, 'clean', false),
+      this.addEditItem(3, 'finish', false)
     );
   }
 
   addItem(value: string): void {
    let id = 1;
+   const status = false;
    if (this.list[this.list.length - 1] !== undefined) {
     id = this.list[this.list.length - 1].id + 1;
    }
    if (value !== '') {
-    this.list.push({id, value});
+    this.list.push({id, value, status});
     this.newItem.nativeElement.value = '';
    }
   }
@@ -37,7 +41,7 @@ export class ListItemsComponent implements OnInit {
 
   editItem(id: number): void {
     this.toggle(id);
-    this.addEditItem(this.list[id].id, this.list[id].value);
+    this.addEditItem(this.list[id].id, this.list[id].value, this.list[id].status);
   }
 
   saveItem(id: number): void {
@@ -49,7 +53,10 @@ export class ListItemsComponent implements OnInit {
     this.show = this.show === index ? this.show = -1 : index;
   }
 
-  addEditItem(id: number , value: string) {
-    return { id, value };
+  addEditItem(id: number , value: string, status: boolean = true) {
+    return { id, value, status };
+  }
+  changeTodoStatus(item: Item): void {
+    item.status = !item.status;
   }
 }

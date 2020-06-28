@@ -13,5 +13,9 @@ ul {
     div .value-class{
         margin-right:15px;
     }
+    .completed {
+        color: darkgray;
+        text-decoration: line-through;
+    }
   }
 }
