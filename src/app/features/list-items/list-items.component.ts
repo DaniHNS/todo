@@ -10,7 +10,7 @@ import { Item } from '../../core/model/item';
 export class ListItemsComponent implements OnInit {
   faTrash = faTrashAlt;
   faPencil = faPencilAlt;
-  // @ViewChild('newItem', { static: false }) newItem: ElementRef;
+  // @ViewChild('newItem', { static: true }) newItem: ElementRef;
   show: number;
   editedItem: Item = {} as Item;
   list: Item[] = [];
@@ -44,6 +44,7 @@ export class ListItemsComponent implements OnInit {
   }
 
   editItem(id: number): void {
+    this.editedItem.value = this.list[id].value;
     this.isEditItem = true;
     this.toggle(id);
     this.addEditItem(this.list[id].id, this.list[id].value, this.list[id].status);
